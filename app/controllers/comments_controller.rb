@@ -16,7 +16,8 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @comment = Comment.new(comment_params)
-
+    @comment.date = Time.now
+    @comment.likes = 0
     if @comment.save
       render json: @comment, status: :created, location: @comment
     else
