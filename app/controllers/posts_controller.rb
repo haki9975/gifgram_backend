@@ -26,7 +26,10 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
+    
+    @post = Post.all.find_by(id: params[:payload][:id])
+    if @post.update(likes: params[:payload][:likes])
+      
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -46,6 +49,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:username, :likes, :image, :date, comment_attributes:[:id, :username, :likes, :date, :post_id])
+      params.require(:post).permit(:username, :id, :likes, :image, :date, comment_attributes:[:id, :username, :likes, :date, :post_id])
     end
 end
