@@ -4,8 +4,9 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     @posts = Post.all
-
-    render json: @posts, include: :comments
+    
+    @shuffled = @posts.shuffle
+    render json: @shuffled, include: :comments
   end
 
   # GET /posts/1
